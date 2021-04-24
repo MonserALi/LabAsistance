@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LAB helper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="img/icon.png"  type="image/x-icon"/>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
+<style>
+
+</style>
+</head>
+<body style="background:#F0F0F0;">
+
+<div class="footer">
+  <p>Simple calculator for labrotory</p>
+</div>
+<center><div class="tab">
+<button class="tablinks" onclick="Action(event, 'Home');" style="border-right:3px solid white">Home</button>
+  <button class="tablinks" onclick="Action(event, 'Lipid'); Clear();" style="border-right:3px solid white">Lipid Profile</button>
+  <button class="tablinks" onclick="Action(event, 'Prothombin'); Clear();" style="border-right:3px solid white">Prothombin Time</button>
+  
+</div></center>
+<div id="Home" class="tabcontent" style="padding-top: 210px;color: tomato;font-size: 50px;text-align: center;">
+	<p>
+		Welcome to Labrotory Calculation system 
+	</p>
+</div>
+<div id="Lipid" class="tabcontent">
+  <div class="container" style="margin:20px; padding:60px">
+	<div class="row"> 
+	<div class="col-md-6"> 
+	<div  >
+		<table>
+		<h1 style="color:#000555">Calculate LDL Dynamically</h1><hr style="background:red"/>
+			<tr>
+				<td>
+					<label>  Cholestrol : </label>
+				</td>
+				<td>
+					<input id="chol"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label> HDL : </label>
+				</td>
+				<td>
+					<input id="hdl"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>  Triglycerides : </label>
+				</td>
+				<td>
+					<input id="tg"/>
+				</td>
+				
+			</tr>
+			<tr>
+				<hr/>
+			</tr>
+			<tr>
+			<td></td>
+				<td>
+				<button class="btn btn-primary btn-md" onclick="TextChange()" style="">Result</button>
+				<button class="btn btn-danger btn-md" onclick="Clear()" style="">Clear</button>
+				</td>
+			</tr>
+				
+		</table>
+		</div>
+		</div>
+		<div class="col-md-6" style="margin-top:160px;">
+			<p id="result" style="font-family:tahoma; font-size:35px; color: #000567"></p>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="Prothombin" class="tabcontent">
+  <div class="container" style="margin:20px; padding:60px">
+	<div class="row"> 
+	<div class="col-md-7" > 
+	<div>
+		<table>
+		<h2 style="color:#000555">Calculate Prothombin Time </h2><hr/>
+			<tr>
+				<td>
+					<label>   Patient : </label>
+				</td>
+				<td>
+					<input id="patient"/>
+				</td>
+			</tr>
+			<tr>
+			<td></td>
+				<td>
+				<button class="btn btn-primary btn-md" onclick="Pro()" style="">Result</button>
+				<button class="btn btn-danger btn-md" onclick="Clear()" style="">Clear</button>
+				</td>
+			</tr>
+		</table>
+		</div>
+		</div>
+			<div class="col-md-5" style="margin-top:100px; display:none; font-size: 20px; border-left:1px solid green" id="pt">
+				<p id="control" style="font-family:tahoma; color: #000567"></p>
+				<p id="patientR" style="font-family:tahoma;  color: #000567"></p>
+				<p id="indR" style="font-family:tahoma;  color: #000567"></p>
+				<p id="ratioR" style="font-family:tahoma;  color: #000567"></p>
+				<p id="INR" style="font-family:tahoma; color: #000567"></p>
+		
+		
+			</div>
+		</div>
+	
+	
+	</div>
+</div>
+
+
+<script>
+
+ var tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent[0].style.display = "block";
+// tab management start
+function Action(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent[0].style.display = "block";
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+	
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active","");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+// tab management end
+
+
+// lipid profile start 
+
+function TextChange(){
+				
+				var chol = parseInt(document.getElementById("chol").value);
+				var hdl = parseInt(document.getElementById("hdl").value);
+				var tg = parseInt(document.getElementById("tg").value);
+				var ldl = parseFloat(tg/5+hdl-chol );
+				
+				document.getElementById("result").innerHTML = "LDL : " + (Math.abs(ldl)) ;
+				
+			}
+			
+			function Clear(){
+				document.getElementById("chol").value = "";
+				document.getElementById("patient").value = "";
+				document.getElementById("patient").focus();
+				document.getElementById("hdl").value = "";
+				document.getElementById("tg").value = "";
+				document.getElementById("result").innerHTML = "";
+				document.getElementById("chol").focus();
+				document.getElementById("pt").style.display = "none";
+			}
+
+// lipid profile  end
+
+// prothombin time start
+	function Pro(){
+		document.getElementById("pt").style.display = "block";
+		var patientval = parseFloat(document.getElementById("patient").value);
+		var Index = parseFloat(1200/patientval);
+		var ratio = parseFloat(patientval/12)
+		var inr = parseFloat(ratio**1.05)
+		document.getElementById("control").innerHTML = " Control :  12" ;
+		document.getElementById("patientR").innerHTML = " Patient : " + patientval;
+		document.getElementById("indR").innerHTML = " Index : " + Index.toPrecision(8);
+		document.getElementById("ratioR").innerHTML = " Ratio : " + ratio.toPrecision(8);
+		document.getElementById("INR").innerHTML =  " INR : " + inr.toPrecision(9);
+			
+	}
+
+// prothombin time end
+
+</script>
+   
+</body>
+
+
+</html> 

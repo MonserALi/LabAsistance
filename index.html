@@ -23,7 +23,7 @@
 </div></center>
 <div id="Home" class="tabcontent" style="padding-top: 210px;color: tomato;font-size: 50px;text-align: center;">
 	<p>
-		Welcome to Labrotory Calculation system 
+		Welcome to Labrotory Calculation System 
 	</p>
 </div>
 <div id="Lipid" class="tabcontent">
@@ -98,7 +98,7 @@
 			<tr>
 			<td></td>
 				<td>
-				<button class="btn btn-primary btn-md" onclick="Pro()" style="">Result</button>
+				<button class="btn btn-primary btn-md" onclick="Pro()" id="myBtn">Result</button>
 				<button class="btn btn-danger btn-md" onclick="Clear()" style="">Clear</button>
 				</td>
 			</tr>
@@ -187,6 +187,18 @@ function TextChange(){
 
 // prothombin time end
 
+	
+	
+	// Prothombin time Enter press event 
+	
+	var input = document.getElementById("patient");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("myBtn").click();
+  }
+});
+	
 </script>
    
 </body>
